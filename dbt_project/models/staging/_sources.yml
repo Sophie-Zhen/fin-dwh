@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    database: FIN_DWH
+    schema: RAW
+    tables:
+      - name: raw_transactions
+        description: "Raw credit-card transactions bulk-loaded from CSV by etl/load_raw.py."

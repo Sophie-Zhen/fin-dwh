@@ -1,0 +1,22 @@
+name: 'fin_dwh'
+version: '1.0.0'
+config-version: 2
+
+profile: 'fin_dwh'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  fin_dwh:
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts

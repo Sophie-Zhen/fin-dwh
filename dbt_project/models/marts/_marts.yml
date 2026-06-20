@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Customer (cardholder) dimension."
+    columns:
+      - name: customer_key
+        description: "Surrogate primary key."
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_account
+    description: "Account / credit-card dimension."
+    columns:
+      - name: account_key
+        description: "Surrogate primary key."
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_merchant
+    description: "Merchant dimension (carries merchant category)."
+    columns:
+      - name: merchant_key
+        description: "Surrogate primary key."
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_date
+    description: "Calendar date dimension."
+    columns:
+      - name: date_key
+        description: "YYYYMMDD integer primary key."
+        data_tests:
+          - not_null
+          - unique
+
+  - name: fact_transactions
+    description: "Transaction fact table (one row per transaction)."
+    columns:
+      - name: transaction_id
+        description: "Degenerate natural key (trans_num)."
+        data_tests:
+          - not_null
+          - unique
+      - name: amount
+        data_tests:
+          - not_null
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_key
+      - name: account_key
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: merchant_key
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_merchant')
+              field: merchant_key
+      - name: date_key
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_key

@@ -1,0 +1,20 @@
+# Secrets — NEVER commit the real .env
+.env
+
+# Data files (regenerated locally / downloaded from Kaggle)
+data/*.csv
+data/*.parquet
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# dbt
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+
+# OS
+.DS_Store

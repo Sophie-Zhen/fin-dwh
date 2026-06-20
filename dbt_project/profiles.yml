@@ -1,0 +1,16 @@
+# dbt connection profile. Credentials come from the same .env the Python code
+# uses (the Makefile sources .env before running dbt). DBT_PROFILES_DIR=. tells
+# dbt to read this file from the project directory.
+fin_dwh:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'ACCOUNTADMIN') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'FIN_DWH') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'FIN_WH') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA', 'MARTS') }}"
+      threads: 4

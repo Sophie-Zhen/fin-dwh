@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_transactions
+    description: "Cleaned, typed, renamed one-row-per-transaction staging model."
+    columns:
+      - name: transaction_id
+        description: "Natural key (trans_num) for a transaction."
+        data_tests:
+          - not_null
+          - unique
+      - name: amount
+        data_tests:
+          - not_null
+      - name: transaction_ts
+        data_tests:
+          - not_null
