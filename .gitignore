@@ -15,6 +15,10 @@ __pycache__/
 dbt_project/target/
 dbt_project/dbt_packages/
 dbt_project/logs/
+dbt_project/.user.yml
 
 # OS
 .DS_Store
+
+# Local notes (not part of the project)
+fin_dwh_nl2sql_troubleshooting.html
