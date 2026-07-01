@@ -117,6 +117,7 @@ for every model and test. The dashboard opens at http://localhost:8501.
 | CV bullet | Where it lives | How to run / verify |
 |---|---|---|
 | **1.** End-to-end Python ETL ingesting a public transactions dataset into Snowflake (RAW → curated layers) | `etl/load_raw.py`, `etl/generate_sample.py` | `make gen-data && make load` — prints rows loaded into `FIN_DWH.RAW.RAW_TRANSACTIONS` |
+| **1 (variant).** Same ingestion + transform as a Databricks/PySpark notebook — equivalent transform, same staged columns as the dbt model | `etl/databricks/transactions_pyspark.py` | Import into Databricks (Free Edition), upload `transactions.csv` to a Volume, set `DATA_PATH`, then **Run All**. Proof: `docs/databricks_staged.png`, `docs/databricks_spend.png` |
 | **2.** Star schema (transaction fact + customer/merchant/account/date dims) in dbt, with data-quality tests (Kimball) | `dbt_project/models/staging/*`, `dbt_project/models/marts/*`, `_*.yml` tests | `make dbt-build` — builds the marts and runs `unique`/`not_null`/`relationships` tests |
 | **3.** Interactive Streamlit BI dashboard over Snowflake (spend, merchant-category, time-series, parameterized filters) | `dashboard/app.py` | `make dashboard` |
 | **4.** LLM natural-language-to-SQL layer (Google Gemini, Claude fallback) for non-technical users | `ai/nl2sql.py` (+ the box in `dashboard/app.py`) | `make nl2sql`, or use the dashboard box. Try: "Top 5 merchant categories by spend", "Spend by card brand", "Which 5 states have the highest total spend?" |
@@ -130,10 +131,10 @@ for every model and test. The dashboard opens at http://localhost:8501.
 
 ## Screenshots
 
-Add these after your first run (they intentionally aren't committed empty):
-
-- `docs/dashboard.png` — the dashboard with KPIs and charts
+- `docs/dashboard.png` — the Streamlit dashboard: KPIs and charts
 - `docs/nl2sql.png` — an English question, the generated SQL, and its result
+- `docs/databricks_staged.png` — the PySpark variant's staged output (schema + rows)
+- `docs/databricks_spend.png` — the PySpark variant writing the Delta table + spend by category
 
 ## Notes on scope / choices
 

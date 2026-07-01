@@ -22,3 +22,4 @@ dbt_project/.user.yml
 
 # Local notes (not part of the project)
 fin_dwh_nl2sql_troubleshooting.html
+fin_dwh_tool_choices.html
